@@ -7,19 +7,19 @@ import LoginScreen from '../screens/LoginScreen';
 
 const Stack = createNativeStackNavigator();
 
-const MyStack = () => {
+const MyStack = props => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Home"
           component={LoginScreen}
-          options={{headerShow: false}}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="Register"
           component={RegisterScreen}
-          options={{headerShow: false}}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -3,7 +3,6 @@ import {View, Text, ScrollView, StyleSheet} from 'react-native';
 
 import {TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Inputs = props => {
   const [value, setValue] = useState('');
@@ -23,8 +22,8 @@ const styles = StyleSheet.create({
   container: {
     width: '90%',
     height: 50,
-    borderRadius: 100,
-    marginVertical: 10,
+    borderRadius: 15,
+    marginVertical: 5,
     borderWidth: 3.5,
     borderColor: '#0779ef',
     flex: 1,
@@ -36,7 +35,8 @@ const styles = StyleSheet.create({
     color: '#0779e4',
   },
   inputText: {
-    // fontWeight: 'bold',
+    fontWeight: 'bold',
+    width: '70%',
     marginLeft: 5,
   },
 });
