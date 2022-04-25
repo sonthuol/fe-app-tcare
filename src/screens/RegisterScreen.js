@@ -1,22 +1,29 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, Image, ScrollView} from 'react-native';
-import Inputs from '../components/Inputs';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import Submit from '../components/Submit';
+import {TextInput} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const RegisterScreen = props => {
-  const patientInit = [
-    {
-      phoneNumber: '',
-      password: '',
-      rePassword: '',
-      isActive: true,
-    },
-  ];
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [rePassword, setRePassword] = useState('');
+  const [isActive, setIsActive] = useState(true);
 
-  const [patient, setPatient] = useState(patientInit);
-
-  function handleRegister() {
-    return patient;
+  function handleRegister(e) {
+    e.preventDefault();
+    console.log('====================================');
+    console.log(
+      phoneNumber + ', ' + password + ', ' + rePassword + ', ' + isActive,
+    );
+    console.log('====================================');
   }
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
@@ -28,14 +35,37 @@ const RegisterScreen = props => {
         />
         <Text style={styles.textTitle}>Đăng ký tài khoản</Text>
         <View style={{marginTop: 20}}></View>
-        <Inputs name="Số điện thoại" icon="phone" />
-        <Inputs name="Mật khẩu" icon="lock" />
-        <Inputs name="Nhập lại mật khẩu" icon="lock" />
-        <Submit
-          color="#0148a4"
-          title="Đăng ký"
-          handleOnPressSubmit={handleRegister()}
-        />
+        <View style={styles.containerInput}>
+          <Icon style={styles.iconInput} name="phone" size={22} />
+          <TextInput
+            style={styles.inputText}
+            placeholder="Số điện thoại"
+            onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
+          />
+        </View>
+        <View style={styles.containerInput}>
+          <Icon style={styles.iconInput} name="lock" size={22} />
+          <TextInput
+            style={styles.inputText}
+            placeholder="Mật khẩu"
+            secureTextEntry={true}
+            onChangeText={password => setPassword(password)}
+          />
+        </View>
+        <View style={styles.containerInput}>
+          <Icon style={styles.iconInput} name="lock" size={22} />
+          <TextInput
+            style={styles.inputText}
+            placeholder="Nhập lại mật khẩu"
+            secureTextEntry={true}
+            onChangeText={rePassword => setRePassword(rePassword)}
+          />
+        </View>
+        <TouchableOpacity
+          style={[styles.containerSubmit, {backgroundColor: '#0148a4'}]}
+          onPress={handleRegister}>
+          <Text style={styles.submitText}>Đăng ký</Text>
+        </TouchableOpacity>
         <View style={{flexDirection: 'row', marginVertical: 20}}>
           <Text style={styles.textBody}>Bạn đã có tài khoản ?</Text>
           <Text
@@ -70,6 +100,41 @@ const styles = StyleSheet.create({
     fontFamily: 'Foundation',
     fontSize: 15,
     color: 'black',
+  },
+  containerInput: {
+    width: '90%',
+    height: 50,
+    borderRadius: 15,
+    marginVertical: 5,
+    borderWidth: 3.5,
+    borderColor: '#0779ef',
+    flex: 1,
+    flexDirection: 'row',
+  },
+  iconInput: {
+    paddingLeft: 20,
+    paddingTop: 10,
+    color: '#0779e4',
+  },
+  inputText: {
+    fontWeight: 'bold',
+    width: '70%',
+    marginLeft: 5,
+  },
+  containerSubmit: {
+    width: '90%',
+    height: 50,
+    borderColor: 'blue',
+    borderRadius: 15,
+    marginVertical: 10,
+    borderWidth: 0,
+  },
+  submitText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: 'white',
+    alignSelf: 'center',
+    marginVertical: 10,
   },
 });
 
