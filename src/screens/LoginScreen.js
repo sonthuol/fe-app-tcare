@@ -23,7 +23,7 @@ const LoginScreen = props => {
             Quên mật khẩu ?
           </Text>
         </View>
-        <Submit color="#0148a4" title="Login" />
+        <Submit color="#0148a4" title="Đăng nhập" />
         <View style={{flexDirection: 'row', marginVertical: 20}}>
           <Text style={styles.textBody}>Bạn chưa có tài khoản ?</Text>
           <Text

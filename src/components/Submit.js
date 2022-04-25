@@ -8,9 +8,14 @@ import {
 } from 'react-native';
 
 const Submit = props => {
+  const handleSubmit = () => {
+    console.log(props.handleOnPressSubmit);
+  };
+
   return (
     <TouchableOpacity
-      style={[styles.container, {backgroundColor: props.color}]}>
+      style={[styles.container, {backgroundColor: props.color}]}
+      onPress={handleSubmit}>
       <Text style={styles.submitText}>{props.title}</Text>
     </TouchableOpacity>
   );
