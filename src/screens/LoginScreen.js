@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 
 import {TextInput} from 'react-native';
@@ -15,11 +16,14 @@ const LoginScreen = props => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = e => {
-    e.preventDefault();
-    console.log('====================================');
-    console.log(phoneNumber + ', ' + password);
-    console.log('====================================');
+  const handleLogin = () => {
+    if (phoneNumber === '0377087266' && password === '24012000') {
+      props.navigation.navigate('Home');
+      ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT);
+    } else {
+      props.navigation.navigate('Home');
+      ToastAndroid.show('Đăng nhập không thành công', ToastAndroid.SHORT);
+    }
   };
 
   return (

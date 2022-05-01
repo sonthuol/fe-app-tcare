@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import Submit from '../components/Submit';
 import {TextInput} from 'react-native';
@@ -17,13 +18,17 @@ const RegisterScreen = props => {
   const [rePassword, setRePassword] = useState('');
   const [isActive, setIsActive] = useState(true);
 
-  function handleRegister(e) {
-    e.preventDefault();
-    console.log('====================================');
-    console.log(
-      phoneNumber + ', ' + password + ', ' + rePassword + ', ' + isActive,
-    );
-    console.log('====================================');
+  function handleRegister() {
+    if (
+      phoneNumber === '0377087266' &&
+      password === '24012000' &&
+      password === rePassword
+    ) {
+      props.navigation.navigate('Login');
+      ToastAndroid.show('Đăng ký thành công', ToastAndroid.SHORT);
+    } else {
+      ToastAndroid.show('Đăng ký không thành công', ToastAndroid.SHORT);
+    }
   }
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
