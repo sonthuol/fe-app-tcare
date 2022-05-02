@@ -9,20 +9,25 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
+  Image,
 } from 'react-native';
-import PropTypes from 'prop-types';
 import Carousel from 'react-native-snap-carousel';
 import {slideClinic} from '../model/data';
 import BannerSlider from '../components/BannerSlider';
+import CustomSwitch from '../components/CustomSwitch';
+import ListItem from '../components/ListItem';
 import {windowWidth} from '../utils/Dimensions';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HomeScreen = props => {
   const [carousel, setCarousel] = useState(null);
+  const [optionTab, setOptionTab] = useState(1);
   const renderBanner = ({index, item}) => {
     return <BannerSlider data={item} />;
   };
-
+  const onSelectSwitch = value => {
+    setOptionTab(value);
+  };
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <ScrollView style={styles.scrollView}>
@@ -73,6 +78,86 @@ const HomeScreen = props => {
           itemWidth={300}
           loop={true}
         />
+        <View
+          style={{
+            marginVertical: 20,
+          }}>
+          <CustomSwitch
+            selectionMode={1}
+            option1="Phòng khám"
+            option2="Chuyên khoa"
+            option3="Bác sĩ"
+            onSelectSwitch={onSelectSwitch}
+          />
+        </View>
+        {optionTab == 1 && (
+          <View>
+            <View
+              style={{
+                marginVertical: 3,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItem: 'center',
+              }}>
+              <View
+                style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
+                <Image
+                  source={require('../images/imageProfile.jpg')}
+                  style={{
+                    width: 55,
+                    height: 50,
+                    borderRadius: 10,
+                    marginRight: 8,
+                  }}
+                />
+                <View>
+                  <Text>Phòng khám Nguyễn Văn A</Text>
+                  <Text>TP. Hồ Chí Minh</Text>
+                </View>
+              </View>
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate('Login')}
+                style={{
+                  backgroundColor: '#0aada8',
+                  padding: 13,
+                  width: 90,
+                  borderRadius: 10,
+                }}>
+                <Text
+                  style={{
+                    color: '#fff',
+                    textAlign: 'center',
+                    fontFamily: 'Roboto-Medium',
+                    fontSize: 14,
+                  }}>
+                  Đặt khám
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <ListItem />
+            <ListItem />
+            <ListItem />
+            <ListItem />
+          </View>
+        )}
+        {optionTab == 2 && (
+          <View>
+            <ListItem />
+            <ListItem />
+            <ListItem />
+            <ListItem />
+            <ListItem />
+          </View>
+        )}
+        {optionTab == 3 && (
+          <View>
+            <ListItem />
+            <ListItem />
+            <ListItem />
+            <ListItem />
+            <ListItem />
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -84,6 +169,7 @@ const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
     backgroundColor: '#fff',
+    marginBottom: 60,
   },
   scrollView: {
     padding: 20,

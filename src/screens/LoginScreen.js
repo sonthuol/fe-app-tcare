@@ -62,7 +62,7 @@ const LoginScreen = props => {
           </Text>
         </View>
         <TouchableOpacity
-          style={[styles.containerSubmit, {backgroundColor: '#0148a4'}]}
+          style={[styles.containerSubmit, {backgroundColor: '#0aada8'}]}
           onPress={handleLogin}>
           <Text style={styles.submitText}>Đăng nhập</Text>
         </TouchableOpacity>

@@ -6,6 +6,7 @@ import RegisterScreen from '../screens/RegisterScreen';
 import LoginScreen from '../screens/LoginScreen';
 import DashboardScreen from '../screens/DashboardScreen';
 import HomeScreen from '../screens/HomeScreen';
+import MyTab from '../navigations/MyTab';
 const Stack = createNativeStackNavigator();
 
 const MyStack = props => {
@@ -23,7 +24,7 @@ const MyStack = props => {
       />
       <Stack.Screen
         name="Home"
-        component={HomeScreen}
+        component={MyTab}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

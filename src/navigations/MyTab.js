@@ -39,7 +39,7 @@ export default function MyTab() {
           // You can return any component that you like here!
           return <Icon name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#0148a4',
+        tabBarActiveTintColor: '#0aada8',
         tabBarInactiveTintColor: 'gray',
       })}>
       <Tab.Screen name="Home" component={HomeScreen} />

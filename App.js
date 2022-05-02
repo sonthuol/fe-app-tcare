@@ -9,7 +9,7 @@ const App: () => React$Node = () => {
   return (
     <NavigationContainer>
       <View style={styles.container}>
-        <MyTab />
+        <MyStack />
       </View>
     </NavigationContainer>
   );

@@ -8,9 +8,9 @@ export default function BannerSlider({data}) {
         source={data.image}
         style={{height: 150, width: 300, borderRadius: 10}}
       />
-      <Text style={{textAlign: 'center', fontSize: 15, color: 'black'}}>
+      {/* <Text style={{textAlign: 'center', fontSize: 15, color: 'black'}}>
         {data.title}
-      </Text>
+      </Text> */}
     </View>
   );
 }

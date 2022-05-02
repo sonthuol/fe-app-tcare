@@ -67,7 +67,7 @@ const RegisterScreen = props => {
           />
         </View>
         <TouchableOpacity
-          style={[styles.containerSubmit, {backgroundColor: '#0148a4'}]}
+          style={[styles.containerSubmit, {backgroundColor: '#0aada8'}]}
           onPress={handleRegister}>
           <Text style={styles.submitText}>Đăng ký</Text>
         </TouchableOpacity>
