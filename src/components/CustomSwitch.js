@@ -39,7 +39,7 @@ export default function CustomSwitch({
           style={{
             color: getSelectionMode == 1 ? 'white' : '#0aada8',
             fontSize: 14,
-            fontFamily: 'Roboto-Medium',
+            fontFamily: 'SourceSansPro-SemiBoldItalic',
             textAlign: 'center',
           }}>
           {option1}
@@ -59,7 +59,7 @@ export default function CustomSwitch({
           style={{
             color: getSelectionMode == 2 ? 'white' : '#0aada8',
             fontSize: 14,
-            fontFamily: 'Roboto-Medium',
+            fontFamily: 'SourceSansPro-SemiBoldItalic',
             textAlign: 'center',
           }}>
           {option2}
@@ -79,7 +79,7 @@ export default function CustomSwitch({
           style={{
             color: getSelectionMode == 3 ? 'white' : '#0aada8',
             fontSize: 14,
-            fontFamily: 'Roboto-Medium',
+            fontFamily: 'SourceSansPro-SemiBoldItalic',
             textAlign: 'center',
           }}>
           {option3}

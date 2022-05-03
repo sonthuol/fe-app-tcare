@@ -16,8 +16,12 @@ export default function ListItem(props) {
           style={{width: 55, height: 50, borderRadius: 10, marginRight: 8}}
         />
         <View>
-          <Text>Phòng khám Nguyễn Văn A</Text>
-          <Text>TP. Hồ Chí Minh</Text>
+          <Text style={{fontFamily: 'SourceSansPro-SemiBoldItalic'}}>
+            Phòng khám Nguyễn Văn A
+          </Text>
+          <Text style={{fontFamily: 'SourceSansPro-SemiBoldItalic'}}>
+            TP. Hồ Chí Minh
+          </Text>
         </View>
       </View>
       <TouchableOpacity
@@ -32,7 +36,7 @@ export default function ListItem(props) {
           style={{
             color: '#fff',
             textAlign: 'center',
-            fontFamily: 'Roboto-Medium',
+            fontFamily: 'SourceSansPro-SemiBoldItalic',
             fontSize: 14,
           }}>
           Đặt khám

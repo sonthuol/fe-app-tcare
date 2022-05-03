@@ -7,7 +7,6 @@ import {
   SafeAreaView,
   StyleSheet,
   ImageBackground,
-  TextInput,
   TouchableOpacity,
   Image,
 } from 'react-native';
@@ -18,7 +17,7 @@ import CustomSwitch from '../components/CustomSwitch';
 import ListItem from '../components/ListItem';
 import {windowWidth} from '../utils/Dimensions';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import IconFontisto from 'react-native-vector-icons/Fontisto';
 const HomeScreen = props => {
   const [carousel, setCarousel] = useState(null);
   const [optionTab, setOptionTab] = useState(1);
@@ -32,23 +31,108 @@ const HomeScreen = props => {
     <SafeAreaView style={styles.safeAreaView}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
-          <Text style={styles.textBody}>Hello, Sơn Thươl</Text>
+          <Text
+            style={{fontFamily: 'SourceSansPro-SemiBoldItalic', fontSize: 25}}>
+            Hello, Sơn Thươl
+          </Text>
           <ImageBackground
             source={require('../images/imageProfile.jpg')}
             style={{width: 35, height: 35}}
             imageStyle={{borderRadius: 25}}
           />
         </View>
-        <View style={styles.search}>
-          <Icon
-            style={styles.iconSearch}
-            name="search"
-            size={25}
-            color="#c6c6c6"
-          />
-          <TextInput style={styles.textInput} placeholder="Tìm kiếm" />
+        <View
+          style={{
+            marginVertical: 10,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItem: 'center',
+          }}>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('Doctor')}
+            style={{
+              backgroundColor: '#001C44',
+              padding: 13,
+              width: 100,
+              borderRadius: 10,
+            }}>
+            <IconFontisto
+              style={{
+                textAlign: 'center',
+                color: '#fff',
+                marginBottom: 5,
+              }}
+              name="doctor"
+              size={30}
+              color="#c6c6c6"
+            />
+            <Text
+              style={{
+                color: '#fff',
+                textAlign: 'center',
+                fontFamily: 'SourceSansPro-SemiBoldItalic',
+                fontSize: 14,
+              }}>
+              Đặt khám bác sĩ
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('Specialty')}
+            style={{
+              backgroundColor: '#0C5776',
+              padding: 13,
+              width: 100,
+              borderRadius: 10,
+            }}>
+            <Icon
+              style={{
+                textAlign: 'center',
+                color: '#fff',
+                marginBottom: 5,
+              }}
+              name="stethoscope"
+              size={30}
+              color="#c6c6c6"
+            />
+            <Text
+              style={{
+                color: '#fff',
+                textAlign: 'center',
+                fontFamily: 'SourceSansPro-SemiBoldItalic',
+                fontSize: 13,
+              }}>
+              Đặt khám chuyên khoa
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('Clinic')}
+            style={{
+              backgroundColor: '#2D99AE',
+              padding: 13,
+              width: 100,
+              borderRadius: 10,
+            }}>
+            <Icon
+              style={{
+                textAlign: 'center',
+                color: '#fff',
+                marginBottom: 5,
+              }}
+              name="hospital-o"
+              size={30}
+              color="#c6c6c6"
+            />
+            <Text
+              style={{
+                color: '#fff',
+                textAlign: 'center',
+                fontFamily: 'SourceSansPro-SemiBoldItalic',
+                fontSize: 13,
+              }}>
+              Đặt khám Phòng khám
+            </Text>
+          </TouchableOpacity>
         </View>
-
         <View
           style={{
             marginVertical: 15,
@@ -58,13 +142,18 @@ const HomeScreen = props => {
           <Text
             style={{
               fontSize: 16,
-              fontFamily: 'Roboto-Medium',
-              fontWeight: 'bold',
+              fontFamily: 'SourceSansPro-SemiBoldItalic',
             }}>
             Phòng khám nổi bật
           </Text>
           <TouchableOpacity onPress={() => {}}>
-            <Text style={{color: '#0aada8'}}>Xem tất cả</Text>
+            <Text
+              style={{
+                color: '#0aada8',
+                fontFamily: 'SourceSansPro-SemiBoldItalic',
+              }}>
+              Xem tất cả
+            </Text>
           </TouchableOpacity>
         </View>
 
@@ -111,12 +200,16 @@ const HomeScreen = props => {
                   }}
                 />
                 <View>
-                  <Text>Phòng khám Nguyễn Văn A</Text>
-                  <Text>TP. Hồ Chí Minh</Text>
+                  <Text style={{fontFamily: 'SourceSansPro-SemiBoldItalic'}}>
+                    Phòng khám Nguyễn Văn A
+                  </Text>
+                  <Text style={{fontFamily: 'SourceSansPro-SemiBoldItalic'}}>
+                    TP. Hồ Chí Minh
+                  </Text>
                 </View>
               </View>
               <TouchableOpacity
-                onPress={() => props.navigation.navigate('Login')}
+                onPress={() => props.navigation.navigate('Specialty')}
                 style={{
                   backgroundColor: '#0aada8',
                   padding: 13,
@@ -127,7 +220,7 @@ const HomeScreen = props => {
                   style={{
                     color: '#fff',
                     textAlign: 'center',
-                    fontFamily: 'Roboto-Medium',
+                    fontFamily: 'SourceSansPro-SemiBoldItalic',
                     fontSize: 14,
                   }}>
                   Đặt khám
@@ -178,27 +271,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 10,
-  },
-  textBody: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    fontFamily: 'Roboto-Medium',
-    // color: 'black',
-  },
-  iconSearch: {
-    paddingTop: 10,
-  },
-  search: {
-    flexDirection: 'row',
-    borderColor: '#c6c6c6',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    // paddingVertical: 6,
-  },
-  textInput: {
-    width: '100%',
-    color: '#c6c6c6',
-    paddingLeft: 20,
   },
 });

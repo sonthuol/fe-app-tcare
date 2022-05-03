@@ -95,14 +95,13 @@ const styles = StyleSheet.create({
     height: 250,
   },
   textTitle: {
-    fontFamily: 'Foundation',
+    fontFamily: 'SourceSansPro-SemiBoldItalic',
     fontSize: 40,
     marginVertical: 10,
     color: 'black',
-    fontWeight: 'bold',
   },
   textBody: {
-    fontFamily: 'Foundation',
+    fontFamily: 'SourceSansPro-SemiBoldItalic',
     fontSize: 15,
     color: 'black',
   },
@@ -122,9 +121,10 @@ const styles = StyleSheet.create({
     color: '#0779e4',
   },
   inputText: {
-    fontWeight: 'bold',
+    fontFamily: 'SourceSansPro-SemiBoldItalic',
     width: '70%',
     marginLeft: 5,
+    fontSize: 18,
   },
   containerSubmit: {
     width: '90%',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   submitText: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontFamily: 'SourceSansPro-SemiBoldItalic',
     color: 'white',
     alignSelf: 'center',
     marginVertical: 10,
