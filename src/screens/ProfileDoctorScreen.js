@@ -150,7 +150,11 @@ const ProfileDoctorScreen = props => {
           alignItem: 'center',
         }}>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate('ScheduleDoctor')}
+          onPress={() =>
+            props.navigation.navigate('Booking', {
+              dateSelected: '2022-05-03',
+            })
+          }
           style={{
             position: 'absolute',
             elevation: 0,
@@ -213,8 +217,8 @@ const styles = StyleSheet.create({
   },
   textDescription: {
     fontFamily: 'SourceSansPro-SemiBoldItalic',
-    // color: 'black',
+    color: 'black',
     fontSize: 14,
-    paddingLeft: 10,
+    padding: 10,
   },
 });

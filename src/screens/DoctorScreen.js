@@ -80,7 +80,11 @@ const DoctorScreen = props => {
             </TouchableOpacity>
           </View>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('ScheduleDoctor')}
+            onPress={() =>
+              props.navigation.navigate('Booking', {
+                dateSelected: '2022-05-03',
+              })
+            }
             style={{
               backgroundColor: '#0aada8',
               padding: 13,

@@ -7,7 +7,9 @@ import LoginScreen from '../screens/LoginScreen';
 import ClinicScreen from '../screens/ClinicScreen';
 import DoctorScreen from '../screens/DoctorScreen';
 import ScheduleDoctorScreen from '../screens/ScheduleDoctorScreen';
+import BookingScreen from '../screens/BookingScreen';
 import ProfileDoctorScreen from '../screens/ProfileDoctorScreen';
+import CalendarDoctorScreen from '../screens/CalendarDoctorScreen';
 import SpecialtyScreen from '../screens/SpecialtyScreen';
 import DashboardScreen from '../screens/DashboardScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -53,8 +55,18 @@ const MyStack = props => {
         options={{headerShown: false}}
       />
       <Stack.Screen
+        name="Booking"
+        component={BookingScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
         name="ProfileDoctor"
         component={ProfileDoctorScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="CalendarDoctor"
+        component={CalendarDoctorScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
