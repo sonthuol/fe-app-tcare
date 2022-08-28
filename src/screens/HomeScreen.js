@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -15,12 +15,56 @@ import {slideClinic} from '../model/data';
 import BannerSlider from '../components/BannerSlider';
 import CustomSwitch from '../components/CustomSwitch';
 import ListItem from '../components/ListItem';
+import ListItemSpecialty from '../components/ListItemSpecialty';
 import {windowWidth} from '../utils/Dimensions';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 const HomeScreen = props => {
+  const [clinics, setClinics] = useState([]);
+  const [specialties, setSpecialties] = useState([]);
+  const [doctors, setDoctors] = useState([]);
   const [carousel, setCarousel] = useState(null);
   const [optionTab, setOptionTab] = useState(1);
+
+  // Passing configuration object to axios
+  useEffect(() => {
+    getAllClinics();
+    getAllSpecialties();
+    getAllDoctors();
+  }, []);
+
+  function getAllClinics() {
+    fetch('http://10.0.2.2:8080/api/public/clinics')
+      .then(response => response.json())
+      .then(res => {
+        setClinics(res.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  function getAllSpecialties() {
+    fetch('http://10.0.2.2:8080/api/public/specialties')
+      .then(response => response.json())
+      .then(res => {
+        setSpecialties(res.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  function getAllDoctors() {
+    fetch('http://10.0.2.2:8080/api/public/doctors')
+      .then(response => response.json())
+      .then(res => {
+        setDoctors(res.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
   const renderBanner = ({index, item}) => {
     return <BannerSlider data={item} />;
   };
@@ -181,76 +225,35 @@ const HomeScreen = props => {
         </View>
         {optionTab == 1 && (
           <View>
-            <View
-              style={{
-                marginVertical: 3,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItem: 'center',
-              }}>
-              <View
-                style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
-                <Image
-                  source={require('../images/imageProfile.jpg')}
-                  style={{
-                    width: 55,
-                    height: 50,
-                    borderRadius: 10,
-                    marginRight: 8,
-                  }}
-                />
-                <View>
-                  <Text style={{fontFamily: 'SourceSansPro-SemiBoldItalic'}}>
-                    Phòng khám Nguyễn Văn A
-                  </Text>
-                  <Text style={{fontFamily: 'SourceSansPro-SemiBoldItalic'}}>
-                    TP. Hồ Chí Minh
-                  </Text>
-                </View>
-              </View>
-              <TouchableOpacity
-                onPress={() => props.navigation.navigate('Specialty')}
-                style={{
-                  backgroundColor: '#0aada8',
-                  padding: 13,
-                  width: 90,
-                  borderRadius: 10,
-                }}>
-                <Text
-                  style={{
-                    color: '#fff',
-                    textAlign: 'center',
-                    fontFamily: 'SourceSansPro-SemiBoldItalic',
-                    fontSize: 14,
-                  }}>
-                  Đặt khám
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
+            {clinics.map(clinic => (
+              <>
+                <ListItem itemClinic={clinic} />
+              </>
+            ))}
           </View>
         )}
         {optionTab == 2 && (
           <View>
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
+            {specialties.map(specialty => (
+              <>
+                <ListItemSpecialty itemSpecialty={specialty} />
+              </>
+            ))}
           </View>
         )}
-        {optionTab == 3 && (
-          <View>
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-          </View>
-        )}
+        {optionTab == 3 &&
+          {
+            /* <View>
+            {doctors.map(doctor => (
+              <>
+                <ListItem
+                  clinicName={doctor.name}
+                  clinicDistrict={doctor.specialties[0].name}
+                />
+              </>
+            ))}
+          </View> */
+          }}
       </ScrollView>
     </SafeAreaView>
   );

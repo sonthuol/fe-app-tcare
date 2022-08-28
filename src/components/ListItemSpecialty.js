@@ -1,7 +1,7 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 
-export default function ListItem({itemClinic}) {
+export default function ListItemSpecialty({itemSpecialty}) {
   return (
     <View
       style={{
@@ -11,7 +11,7 @@ export default function ListItem({itemClinic}) {
         alignItem: 'center',
       }}>
       <View style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
-        <Image
+        {/* <Image
           source={{uri: itemClinic.image}}
           style={{
             width: 55,
@@ -20,7 +20,7 @@ export default function ListItem({itemClinic}) {
             marginRight: 8,
             resizeMode: 'contain',
           }}
-        />
+        /> */}
         <View>
           <Text
             style={{
@@ -28,15 +28,7 @@ export default function ListItem({itemClinic}) {
               width: 200,
               fontSize: 13,
             }}>
-            {itemClinic.name}
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'SourceSansPro-SemiBoldItalic',
-              fontSize: 10,
-              width: 200,
-            }}>
-            {itemClinic.address}
+            {itemSpecialty.name}
           </Text>
         </View>
       </View>
