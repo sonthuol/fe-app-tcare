@@ -1,7 +1,7 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 
-export default function ListItem({itemClinic, props, clinicId}) {
+export default function ListItemDoctor({itemDoctor}) {
   return (
     <View
       style={{
@@ -11,7 +11,7 @@ export default function ListItem({itemClinic, props, clinicId}) {
         alignItem: 'center',
       }}>
       <View style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
-        <Image
+        {/* <Image
           source={{uri: itemClinic.image}}
           style={{
             width: 55,
@@ -20,7 +20,7 @@ export default function ListItem({itemClinic, props, clinicId}) {
             marginRight: 8,
             resizeMode: 'contain',
           }}
-        />
+        /> */}
         <View>
           <Text
             style={{
@@ -28,7 +28,7 @@ export default function ListItem({itemClinic, props, clinicId}) {
               width: 200,
               fontSize: 13,
             }}>
-            {itemClinic.name}
+            {itemDoctor.name}
           </Text>
           <Text
             style={{
@@ -36,12 +36,12 @@ export default function ListItem({itemClinic, props, clinicId}) {
               fontSize: 10,
               width: 200,
             }}>
-            {itemClinic.address}
+            {itemDoctor.specialties[0].name}
           </Text>
         </View>
       </View>
       <TouchableOpacity
-        onPress={() => props.navigation.navigate('Specialty', {clinicId})}
+        onPress={() => props.navigation.navigate('Register')}
         style={{
           backgroundColor: '#0aada8',
           padding: 13,

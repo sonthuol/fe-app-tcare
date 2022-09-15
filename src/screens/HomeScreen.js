@@ -16,6 +16,7 @@ import BannerSlider from '../components/BannerSlider';
 import CustomSwitch from '../components/CustomSwitch';
 import ListItem from '../components/ListItem';
 import ListItemSpecialty from '../components/ListItemSpecialty';
+import ListItemDoctor from '../components/ListItemDoctor';
 import {windowWidth} from '../utils/Dimensions';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
@@ -25,6 +26,8 @@ const HomeScreen = props => {
   const [doctors, setDoctors] = useState([]);
   const [carousel, setCarousel] = useState(null);
   const [optionTab, setOptionTab] = useState(1);
+  const [clinicId, setClinicId] = useState('');
+  const [specialtyId, setSpecialtyId] = useState('');
 
   // Passing configuration object to axios
   useEffect(() => {
@@ -93,7 +96,9 @@ const HomeScreen = props => {
             alignItem: 'center',
           }}>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('Doctor')}
+            onPress={() =>
+              props.navigation.navigate('Doctor', {clinicId, specialtyId})
+            }
             style={{
               backgroundColor: '#001C44',
               padding: 13,
@@ -121,7 +126,7 @@ const HomeScreen = props => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('Specialty')}
+            onPress={() => props.navigation.navigate('Specialty', {clinicId})}
             style={{
               backgroundColor: '#0C5776',
               padding: 13,
@@ -227,7 +232,11 @@ const HomeScreen = props => {
           <View>
             {clinics.map(clinic => (
               <>
-                <ListItem itemClinic={clinic} />
+                <ListItem
+                  itemClinic={clinic}
+                  props={props}
+                  clinicId={clinic.id}
+                />
               </>
             ))}
           </View>
@@ -241,19 +250,15 @@ const HomeScreen = props => {
             ))}
           </View>
         )}
-        {optionTab == 3 &&
-          {
-            /* <View>
+        {optionTab == 3 && (
+          <View>
             {doctors.map(doctor => (
               <>
-                <ListItem
-                  clinicName={doctor.name}
-                  clinicDistrict={doctor.specialties[0].name}
-                />
+                <ListItemDoctor itemDoctor={doctor} />
               </>
             ))}
-          </View> */
-          }}
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

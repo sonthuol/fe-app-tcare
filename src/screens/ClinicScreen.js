@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -15,6 +15,23 @@ import ListItem from '../components/ListItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 const ClinicScreen = props => {
+  const [clinics, setClinics] = useState([]);
+
+  // Passing configuration object to axios
+  useEffect(() => {
+    getAllClinics();
+  }, []);
+
+  function getAllClinics() {
+    fetch('http://10.0.2.2:8080/api/public/clinics')
+      .then(response => response.json())
+      .then(res => {
+        setClinics(res.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <ScrollView style={styles.scrollView}>
@@ -41,125 +58,12 @@ const ClinicScreen = props => {
           />
           <TextInput style={styles.textInput} placeholder="Tìm kiếm" />
         </View>
-        <View
-          style={{
-            marginVertical: 3,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItem: 'center',
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
-            <Image
-              source={require('../images/imageProfile.jpg')}
-              style={{
-                width: 55,
-                height: 50,
-                borderRadius: 10,
-                marginRight: 8,
-              }}
-            />
-            <View>
-              <Text>Răng hàm mặt</Text>
-            </View>
-          </View>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('Specialty')}
-            style={{
-              backgroundColor: '#0aada8',
-              padding: 13,
-              width: 90,
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                color: '#fff',
-                textAlign: 'center',
-                fontFamily: 'SourceSansPro-SemiBoldItalic',
-                fontSize: 14,
-              }}>
-              Đặt khám
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            marginVertical: 3,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItem: 'center',
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
-            <Image
-              source={require('../images/imageProfile.jpg')}
-              style={{
-                width: 55,
-                height: 50,
-                borderRadius: 10,
-                marginRight: 8,
-              }}
-            />
-            <View>
-              <Text>Nhi khoa</Text>
-            </View>
-          </View>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('Specialty')}
-            style={{
-              backgroundColor: '#0aada8',
-              padding: 13,
-              width: 90,
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                color: '#fff',
-                textAlign: 'center',
-                fontFamily: 'SourceSansPro-SemiBoldItalic',
-                fontSize: 14,
-              }}>
-              Đặt khám
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            marginVertical: 3,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItem: 'center',
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
-            <Image
-              source={require('../images/imageProfile.jpg')}
-              style={{
-                width: 55,
-                height: 50,
-                borderRadius: 10,
-                marginRight: 8,
-              }}
-            />
-            <View>
-              <Text>Xương khớp</Text>
-            </View>
-          </View>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('Specialty')}
-            style={{
-              backgroundColor: '#0aada8',
-              padding: 13,
-              width: 90,
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                color: '#fff',
-                textAlign: 'center',
-                fontFamily: 'SourceSansPro-SemiBoldItalic',
-                fontSize: 14,
-              }}>
-              Đặt khám
-            </Text>
-          </TouchableOpacity>
+        <View>
+          {clinics.map(clinic => (
+            <>
+              <ListItem itemClinic={clinic} />
+            </>
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>

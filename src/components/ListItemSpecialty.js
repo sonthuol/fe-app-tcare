@@ -1,7 +1,12 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 
-export default function ListItemSpecialty({itemSpecialty}) {
+export default function ListItemSpecialty({
+  itemSpecialty,
+  props,
+  clinicId,
+  specialtyId,
+}) {
   return (
     <View
       style={{
@@ -33,7 +38,9 @@ export default function ListItemSpecialty({itemSpecialty}) {
         </View>
       </View>
       <TouchableOpacity
-        onPress={() => props.navigation.navigate('Register')}
+        onPress={() =>
+          props.navigation.navigate('Doctor', {clinicId, specialtyId})
+        }
         style={{
           backgroundColor: '#0aada8',
           padding: 13,

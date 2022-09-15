@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -11,10 +11,37 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import ListItem from '../components/ListItem';
+import ListItemDoctor from '../components/ListItemDoctor';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 const DoctorScreen = props => {
+  const [doctors, setDoctors] = useState([]);
+  const [url, setUrl] = useState('http://10.0.2.2:8080/api/public/doctors/');
+  const [clinicId, setClinicId] = useState(props.route.params.clinicId);
+  const [specialtyId, setSpecialtyId] = useState(
+    props.route.params.specialtyId,
+  );
+
+  // Passing configuration object to axios
+  useEffect(() => {
+    getAllDoctors();
+  }, []);
+  function getAllDoctors() {
+    if (clinicId !== '' && specialtyId !== '') {
+      setUrl(url + clinicId + '/' + specialtyId);
+    }
+    console.log('====================================');
+    console.log(url);
+    console.log('====================================');
+    fetch(url)
+      .then(response => response.json())
+      .then(res => {
+        setDoctors(res.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <ScrollView style={styles.scrollView}>
@@ -40,175 +67,12 @@ const DoctorScreen = props => {
           />
           <TextInput style={styles.textInput} placeholder="Tìm kiếm" />
         </View>
-        <View
-          style={{
-            marginVertical: 3,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItem: 'center',
-          }}>
-          <View>
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate('ProfileDoctor')}
-              style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
-              <Image
-                source={require('../images/imageProfile.jpg')}
-                style={{
-                  width: 55,
-                  height: 50,
-                  borderRadius: 10,
-                  marginRight: 8,
-                }}
-              />
-              <View>
-                <Text
-                  style={{
-                    fontSize: 20,
-                    color: 'black',
-                    fontFamily: 'SourceSansPro-SemiBoldItalic',
-                  }}>
-                  Nguyễn Văn A
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontFamily: 'SourceSansPro-SemiBoldItalic',
-                  }}>
-                  Răng hàm mặt
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity
-            onPress={() =>
-              props.navigation.navigate('Booking', {
-                dateSelected: '2022-05-03',
-              })
-            }
-            style={{
-              backgroundColor: '#0aada8',
-              padding: 13,
-              width: 90,
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                color: '#fff',
-                textAlign: 'center',
-                fontFamily: 'SourceSansPro-SemiBoldItalicItalic',
-                fontSize: 14,
-              }}>
-              Đặt khám
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            marginVertical: 3,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItem: 'center',
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
-            <Image
-              source={require('../images/imageProfile.jpg')}
-              style={{
-                width: 55,
-                height: 50,
-                borderRadius: 10,
-                marginRight: 8,
-              }}
-            />
-            <View>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: 'black',
-                  fontFamily: 'SourceSansPro-SemiBoldItalic',
-                }}>
-                Nguyễn Văn B
-              </Text>
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontFamily: 'SourceSansPro-SemiBoldItalic',
-                }}>
-                Nhi khoa
-              </Text>
-            </View>
-          </View>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('Specialty')}
-            style={{
-              backgroundColor: '#0aada8',
-              padding: 13,
-              width: 90,
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                color: '#fff',
-                textAlign: 'center',
-                fontFamily: 'SourceSansPro-SemiBoldItalicItalic',
-                fontSize: 14,
-              }}>
-              Đặt khám
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            marginVertical: 3,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItem: 'center',
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
-            <Image
-              source={require('../images/imageProfile.jpg')}
-              style={{
-                width: 55,
-                height: 50,
-                borderRadius: 10,
-                marginRight: 8,
-              }}
-            />
-            <View>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: 'black',
-                  fontFamily: 'SourceSansPro-SemiBoldItalic',
-                }}>
-                Nguyễn Văn C
-              </Text>
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontFamily: 'SourceSansPro-SemiBoldItalic',
-                }}>
-                Xương khớp
-              </Text>
-            </View>
-          </View>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('Specialty')}
-            style={{
-              backgroundColor: '#0aada8',
-              padding: 13,
-              width: 90,
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                color: '#fff',
-                textAlign: 'center',
-                fontFamily: 'SourceSansPro-SemiBoldItalicItalic',
-                fontSize: 14,
-              }}>
-              Đặt khám
-            </Text>
-          </TouchableOpacity>
+        <View>
+          {doctors.map(doctor => (
+            <>
+              <ListItemDoctor itemDoctor={doctor} />
+            </>
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>
