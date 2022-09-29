@@ -16,7 +16,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 const DoctorScreen = props => {
   const [doctors, setDoctors] = useState([]);
-  const [url, setUrl] = useState('http://10.0.2.2:8080/api/public/doctors/');
   const [clinicId, setClinicId] = useState(props.route.params.clinicId);
   const [specialtyId, setSpecialtyId] = useState(
     props.route.params.specialtyId,
@@ -27,12 +26,10 @@ const DoctorScreen = props => {
     getAllDoctors();
   }, []);
   function getAllDoctors() {
+    let url = 'http://10.0.2.2:8080/api/public/doctors/';
     if (clinicId !== '' && specialtyId !== '') {
-      setUrl(url + clinicId + '/' + specialtyId);
+      url = url + clinicId + '/' + specialtyId;
     }
-    console.log('====================================');
-    console.log(url);
-    console.log('====================================');
     fetch(url)
       .then(response => response.json())
       .then(res => {
@@ -70,7 +67,7 @@ const DoctorScreen = props => {
         <View>
           {doctors.map(doctor => (
             <>
-              <ListItemDoctor itemDoctor={doctor} />
+              <ListItemDoctor itemDoctor={doctor} props={props} />
             </>
           ))}
         </View>

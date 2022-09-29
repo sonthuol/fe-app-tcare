@@ -14,12 +14,14 @@ import {
 import ListItem from '../components/ListItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
-const ProfileDoctorScreen = props => {
+const ProfileDoctorScreen = (props, clinicId, specialtyId) => {
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.container}>
         <Icon
-          onPress={() => props.navigation.navigate('Doctor')}
+          onPress={() =>
+            props.navigation.navigate('Doctor', {clinicId, specialtyId})
+          }
           name="chevron-left"
           size={25}
           color="#fff"

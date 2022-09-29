@@ -61,7 +61,11 @@ const ClinicScreen = props => {
         <View>
           {clinics.map(clinic => (
             <>
-              <ListItem itemClinic={clinic} />
+              <ListItem
+                itemClinic={clinic}
+                props={props}
+                clinicId={clinic.id}
+              />
             </>
           ))}
         </View>

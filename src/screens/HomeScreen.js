@@ -245,7 +245,12 @@ const HomeScreen = props => {
           <View>
             {specialties.map(specialty => (
               <>
-                <ListItemSpecialty itemSpecialty={specialty} />
+                <ListItemSpecialty
+                  itemSpecialty={specialty}
+                  props={props}
+                  clinicId={specialty.clinics[0].id}
+                  specialtyId={specialty.id}
+                />
               </>
             ))}
           </View>
@@ -254,7 +259,7 @@ const HomeScreen = props => {
           <View>
             {doctors.map(doctor => (
               <>
-                <ListItemDoctor itemDoctor={doctor} />
+                <ListItemDoctor itemDoctor={doctor} props={props} />
               </>
             ))}
           </View>

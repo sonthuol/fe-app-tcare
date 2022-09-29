@@ -1,7 +1,8 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 
-export default function ListItemDoctor({itemDoctor}) {
+export default function ListItemDoctor({itemDoctor, props}) {
+  const [doctorId, setDoctorId] = useState(itemDoctor.id);
   return (
     <View
       style={{
@@ -22,26 +23,29 @@ export default function ListItemDoctor({itemDoctor}) {
           }}
         /> */}
         <View>
-          <Text
-            style={{
-              fontFamily: 'SourceSansPro-SemiBoldItalic',
-              width: 200,
-              fontSize: 13,
-            }}>
-            {itemDoctor.name}
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'SourceSansPro-SemiBoldItalic',
-              fontSize: 10,
-              width: 200,
-            }}>
-            {itemDoctor.specialties[0].name}
-          </Text>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('ProfileDoctor')}>
+            <Text
+              style={{
+                fontFamily: 'SourceSansPro-SemiBoldItalic',
+                width: 200,
+                fontSize: 13,
+              }}>
+              {itemDoctor.name}
+            </Text>
+            <Text
+              style={{
+                fontFamily: 'SourceSansPro-SemiBoldItalic',
+                fontSize: 10,
+                width: 200,
+              }}>
+              {itemDoctor.specialties[0].name}
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
       <TouchableOpacity
-        onPress={() => props.navigation.navigate('Register')}
+        onPress={() => props.navigation.navigate('CalendarDoctor', {doctorId})}
         style={{
           backgroundColor: '#0aada8',
           padding: 13,

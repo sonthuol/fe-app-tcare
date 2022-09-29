@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -50,21 +50,22 @@ LocaleConfig.locales['vi'] = {
 };
 LocaleConfig.defaultLocale = 'vi';
 
-const CalendarDoctorScreen = props => {
-  const [dateSelected, setDateSelected] = useState('');
+const CalendarDoctorScreen = (props, clinicId, specialtyId) => {
+  const doctorId = props.route.params.doctorId;
 
   const onPressDateSelected = e => {
-    // console.log(e.dateString);
-    props.navigation.navigate('Booking', {
-      dateSelected: e.dateString,
-    });
+    let dateSelected =
+      e.day + '/' + (e.month < 10 ? '0' + e.month : e.month) + '/' + e.year;
+    props.navigation.navigate('Booking', {dateSelected, doctorId});
   };
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.container}>
         <Icon
-          onPress={() => props.navigation.navigate('Booking')}
+          onPress={() =>
+            props.navigation.navigate('Doctor', {clinicId, specialtyId})
+          }
           name="chevron-left"
           size={25}
           color="#fff"

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -14,15 +14,44 @@ import {
 import ListItem from '../components/ListItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
-const BookingScreen = props => {
-  const {dateSelected} = props.route.params;
-  console.log(dateSelected);
+const BookingScreen = (props, clinicId, specialtyId) => {
+  const dateSelected = props.route.params.dateSelected;
+  const doctorId = props.route.params.doctorId;
+  const [schedules, setSchedules] = useState([]);
+  // Passing configuration object to axios
+  useEffect(() => {
+    // getScheduleByDoctorIdAndDate();
+    let url =
+      'http://10.0.2.2:8080/api/schedules/' + doctorId + '?day=' + dateSelected;
+    fetch(url)
+      .then(response => response.json())
+      .then(res => {
+        setSchedules(res.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+  // function getScheduleByDoctorIdAndDate() {
+  //   let url =
+  //     'http://10.0.2.2:8080/api/schedules/' + doctorId + '?day=' + dateSelected;
+  //   fetch(url)
+  //     .then(response => response.json())
+  //     .then(res => {
+  //       setSchedules(res.data);
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.container}>
         <Icon
-          onPress={() => props.navigation.navigate('Doctor')}
+          onPress={() =>
+            props.navigation.navigate('Doctor', {clinicId, specialtyId})
+          }
           name="chevron-left"
           size={25}
           color="#fff"
@@ -51,7 +80,9 @@ const BookingScreen = props => {
         <View style={{marginTop: 20}}></View>
         <View>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('CalendarDoctor')}>
+            onPress={() =>
+              props.navigation.navigate('CalendarDoctor', {doctorId: doctorId})
+            }>
             <Text style={styles.titleTextInput}>Ngày khám *</Text>
             <View style={styles.containerInput}>
               <Icon style={styles.iconInput} name="calendar" size={22} />
@@ -63,6 +94,19 @@ const BookingScreen = props => {
               />
             </View>
           </TouchableOpacity>
+        </View>
+        <View style={styles.hourBookingMorning}>
+          <Text style={styles.titleTextInput}>Giờ khám</Text>
+          {schedules.map(schedule => (
+            <View style={styles.buttonHourBooking}>
+              <Button
+                title={schedule.time}
+                color="#0aada8"
+                disabled={schedule.status == false}
+                onPress={() => Alert.alert('Simple Button pressed')}
+              />
+            </View>
+          ))}
         </View>
       </View>
     </SafeAreaView>
@@ -109,5 +153,18 @@ const styles = StyleSheet.create({
   titleTextInput: {
     fontSize: 14,
     fontFamily: 'SourceSansPro-SemiBoldItalic',
+  },
+  hourBookingMorning: {
+    width: '90%',
+    position: 'absolute',
+    top: 105,
+    marginVertical: 8,
+  },
+  buttonHourBooking: {
+    width: '50%',
+    height: 40,
+    borderRadius: 20,
+    marginVertical: 6,
+    justifyContent: 'center',
   },
 });
