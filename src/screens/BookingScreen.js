@@ -23,6 +23,9 @@ const BookingScreen = (props, clinicId, specialtyId) => {
     // getScheduleByDoctorIdAndDate();
     let url =
       'http://10.0.2.2:8080/api/schedules/' + doctorId + '?day=' + dateSelected;
+    console.log('====================================');
+    console.log(url);
+    console.log('====================================');
     fetch(url)
       .then(response => response.json())
       .then(res => {
@@ -32,18 +35,6 @@ const BookingScreen = (props, clinicId, specialtyId) => {
         console.error(error);
       });
   }, []);
-  // function getScheduleByDoctorIdAndDate() {
-  //   let url =
-  //     'http://10.0.2.2:8080/api/schedules/' + doctorId + '?day=' + dateSelected;
-  //   fetch(url)
-  //     .then(response => response.json())
-  //     .then(res => {
-  //       setSchedules(res.data);
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // }
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -103,7 +94,9 @@ const BookingScreen = (props, clinicId, specialtyId) => {
                 title={schedule.time}
                 color="#0aada8"
                 disabled={schedule.status == false}
-                onPress={() => Alert.alert('Simple Button pressed')}
+                onPress={() =>
+                  props.navigation.navigate('CreateMedicalRecords')
+                }
               />
             </View>
           ))}

@@ -8,6 +8,7 @@ import ClinicScreen from '../screens/ClinicScreen';
 import DoctorScreen from '../screens/DoctorScreen';
 import ScheduleDoctorScreen from '../screens/ScheduleDoctorScreen';
 import BookingScreen from '../screens/BookingScreen';
+import CreateMedicalRecordsScreen from '../screens/CreateMedicalRecordsScreen';
 import ProfileDoctorScreen from '../screens/ProfileDoctorScreen';
 import CalendarDoctorScreen from '../screens/CalendarDoctorScreen';
 import SpecialtyScreen from '../screens/SpecialtyScreen';
@@ -68,6 +69,11 @@ const MyStack = props => {
         name="CalendarDoctor"
         component={CalendarDoctorScreen}
         options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="CreateMedicalRecords"
+        component={CreateMedicalRecordsScreen}
+        options={({headerShown: true}, {title: 'Tạo hồ sơ khám bệnh'})}
       />
     </Stack.Navigator>
   );

@@ -55,7 +55,11 @@ const CalendarDoctorScreen = (props, clinicId, specialtyId) => {
 
   const onPressDateSelected = e => {
     let dateSelected =
-      e.day + '/' + (e.month < 10 ? '0' + e.month : e.month) + '/' + e.year;
+      (e.day < 10 ? '0' + e.day : e.day) +
+      '/' +
+      (e.month < 10 ? '0' + e.month : e.month) +
+      '/' +
+      e.year;
     props.navigation.navigate('Booking', {dateSelected, doctorId});
   };
 

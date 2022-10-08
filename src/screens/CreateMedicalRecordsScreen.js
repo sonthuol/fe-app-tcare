@@ -8,57 +8,48 @@ import {
   TouchableOpacity,
   ToastAndroid,
 } from 'react-native';
-import Submit from '../components/Submit';
+
 import {TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const RegisterScreen = props => {
+const CreateMedicalRecordsScreen = props => {
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [fullName, setFullName] = useState('');
   const [password, setPassword] = useState('');
-  const [rePassword, setRePassword] = useState('');
-  const [isActive, setIsActive] = useState(true);
 
-  function handleRegister() {
-    if (password === rePassword) {
-      props.navigation.navigate('Login');
-      ToastAndroid.show('Đăng ký thành công', ToastAndroid.SHORT);
-      fetch('http://10.0.2.2:8080/api/patient/signup', {
-        method: 'POST',
-        body: JSON.stringify({
-          fullName: fullName,
-          phoneNumber: phoneNumber,
-          password: password,
-        }),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-      })
-        // Converting to JSON
-        .then(response => response.json())
-        // Displaying results to console
-        .then(json => console.log(json));
-      props.navigation.navigate('Login');
+  const handleLogin = () => {
+    if (phoneNumber === '0377087266' && password === '24012000') {
+      props.navigation.navigate('Home');
+      ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT);
     } else {
-      ToastAndroid.show('Mật khẩu không khớp', ToastAndroid.SHORT);
+      props.navigation.navigate('Home');
+      ToastAndroid.show('Đăng nhập không thành công', ToastAndroid.SHORT);
     }
-  }
+  };
+
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
       <View style={styles.container}>
-        <Image
-          source={require('../images/image_register.jpg')}
-          resizeMode="center"
-          style={styles.image}
-        />
-        <Text style={styles.textTitle}>Đăng ký tài khoản</Text>
+        <View style={{marginTop: 20}}></View>
+        <View style={{width: '90%'}}>
+          <Text style={[styles.textBody, {alignSelf: 'flex-start'}]}>
+            Phí khám bệnh: 300.000đ
+          </Text>
+        </View>
         <View style={{marginTop: 20}}></View>
         <View style={styles.containerInput}>
           <Icon style={styles.iconInput} name="user" size={22} />
           <TextInput
             style={styles.inputText}
-            placeholder="Họ và tên"
-            onChangeText={fullName => setFullName(fullName)}
+            placeholder="Họ tên bệnh nhân"
+            onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
+          />
+        </View>
+        <View style={styles.containerInput}>
+          <Icon style={styles.iconInput} name="transgender" size={22} />
+          <TextInput
+            style={styles.inputText}
+            placeholder="Giới tính"
+            onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
           />
         </View>
         <View style={styles.containerInput}>
@@ -70,34 +61,39 @@ const RegisterScreen = props => {
           />
         </View>
         <View style={styles.containerInput}>
-          <Icon style={styles.iconInput} name="lock" size={22} />
+          <Icon style={styles.iconInput} name="calendar" size={22} />
           <TextInput
             style={styles.inputText}
-            placeholder="Mật khẩu"
+            placeholder="Ngày/Tháng/Năm sinh"
             secureTextEntry={true}
             onChangeText={password => setPassword(password)}
           />
         </View>
         <View style={styles.containerInput}>
-          <Icon style={styles.iconInput} name="lock" size={22} />
+          <Icon style={styles.iconInput} name="street-view" size={22} />
           <TextInput
             style={styles.inputText}
-            placeholder="Nhập lại mật khẩu"
+            placeholder="Địa chỉ"
             secureTextEntry={true}
-            onChangeText={rePassword => setRePassword(rePassword)}
+            onChangeText={password => setPassword(password)}
           />
+        </View>
+        <View style={{width: '90%'}}>
+          <Text style={[styles.textBody, {alignSelf: 'flex-end'}]}>
+            Quên mật khẩu ?
+          </Text>
         </View>
         <TouchableOpacity
           style={[styles.containerSubmit, {backgroundColor: '#0aada8'}]}
-          onPress={handleRegister}>
-          <Text style={styles.submitText}>Đăng ký</Text>
+          onPress={handleLogin}>
+          <Text style={styles.submitText}>Đăng nhập</Text>
         </TouchableOpacity>
         <View style={{flexDirection: 'row', marginVertical: 20}}>
-          <Text style={styles.textBody}>Bạn đã có tài khoản ?</Text>
+          <Text style={styles.textBody}>Bạn chưa có tài khoản ?</Text>
           <Text
             style={[styles.textBody, {color: 'blue', marginLeft: 5}]}
-            onPress={() => props.navigation.navigate('Login')}>
-            Đăng nhập
+            onPress={() => props.navigation.navigate('Register')}>
+            Đăng ký tài khoản
           </Text>
         </View>
       </View>
@@ -116,10 +112,10 @@ const styles = StyleSheet.create({
     height: 250,
   },
   textTitle: {
-    fontFamily: 'SourceSansPro-SemiBoldItalic',
-    fontSize: 40,
+    fontSize: 50,
     marginVertical: 10,
     color: 'black',
+    fontFamily: 'SourceSansPro-SemiBoldItalic',
   },
   textBody: {
     fontFamily: 'SourceSansPro-SemiBoldItalic',
@@ -164,4 +160,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+export default CreateMedicalRecordsScreen;

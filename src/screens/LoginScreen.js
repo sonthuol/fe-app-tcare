@@ -15,14 +15,30 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const LoginScreen = props => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [status, setStatus] = useState();
+  const [message, setMessage] = useState('');
 
   const handleLogin = () => {
-    if (phoneNumber === '0377087266' && password === '24012000') {
-      props.navigation.navigate('Home');
+    fetch('http://10.0.2.2:8080/api/patient/signin', {
+      method: 'POST',
+      body: JSON.stringify({
+        phoneNumber: phoneNumber,
+        password: password,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => response.json())
+      .then(res => {
+        setStatus(res.status);
+        setMessage(res.message);
+      });
+    if (status === 200) {
       ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT);
-    } else {
       props.navigation.navigate('Home');
-      ToastAndroid.show('Đăng nhập không thành công', ToastAndroid.SHORT);
+    } else {
+      ToastAndroid.show(message, ToastAndroid.SHORT);
     }
   };
 
