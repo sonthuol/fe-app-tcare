@@ -95,7 +95,11 @@ const BookingScreen = (props, clinicId, specialtyId) => {
                 color="#0aada8"
                 disabled={schedule.status == false}
                 onPress={() =>
-                  props.navigation.navigate('CreateMedicalRecords')
+                  props.navigation.navigate('CreateMedicalRecords', {
+                    doctorId,
+                    dateSelected,
+                    scheduleId: schedule.id,
+                  })
                 }
               />
             </View>

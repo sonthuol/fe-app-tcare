@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   ToastAndroid,
+  AsyncStorage,
 } from 'react-native';
 
 import {TextInput} from 'react-native';
@@ -17,6 +18,7 @@ const LoginScreen = props => {
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState();
   const [message, setMessage] = useState('');
+  const [patient, setPatient] = useState({});
 
   const handleLogin = () => {
     fetch('http://10.0.2.2:8080/api/patient/signin', {
@@ -33,14 +35,20 @@ const LoginScreen = props => {
       .then(res => {
         setStatus(res.status);
         setMessage(res.message);
+        setPatient(res.data.patient);
       });
     if (status === 200) {
+      saveAsyncStorage();
       ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT);
       props.navigation.navigate('Home');
     } else {
       ToastAndroid.show(message, ToastAndroid.SHORT);
     }
   };
+
+  function saveAsyncStorage() {
+    AsyncStorage.setItem('profilePatient', JSON.stringify(patient));
+  }
 
   return (
     <ScrollView style={{backgroundColor: 'white'}}>

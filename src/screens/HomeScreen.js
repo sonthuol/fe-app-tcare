@@ -9,6 +9,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   Image,
+  AsyncStorage,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import {slideClinic} from '../model/data';
@@ -28,13 +29,22 @@ const HomeScreen = props => {
   const [optionTab, setOptionTab] = useState(1);
   const [clinicId, setClinicId] = useState('');
   const [specialtyId, setSpecialtyId] = useState('');
+  const [patientAsyncStorage, setPatientAsyncStorage] = useState([]);
 
   // Passing configuration object to axios
   useEffect(() => {
     getAllClinics();
     getAllSpecialties();
     getAllDoctors();
+    getAsyncStorage();
   }, []);
+
+  function getAsyncStorage() {
+    AsyncStorage.getItem('profilePatient', (err, result) => {
+      result = JSON.parse(result);
+      setPatientAsyncStorage(result);
+    });
+  }
 
   function getAllClinics() {
     fetch('http://10.0.2.2:8080/api/public/clinics')
@@ -80,7 +90,7 @@ const HomeScreen = props => {
         <View style={styles.container}>
           <Text
             style={{fontFamily: 'SourceSansPro-SemiBoldItalic', fontSize: 25}}>
-            Hello, Sơn Thươl
+            Hello, {patientAsyncStorage.name}
           </Text>
           <ImageBackground
             source={require('../images/imageProfile.jpg')}

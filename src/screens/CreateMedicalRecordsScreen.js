@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -7,23 +7,50 @@ import {
   ScrollView,
   TouchableOpacity,
   ToastAndroid,
+  AsyncStorage,
 } from 'react-native';
 
 import {TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const CreateMedicalRecordsScreen = props => {
+  const [name, setName] = useState('');
+  const [gender, setGender] = useState('');
+  const [birthday, setBirthday] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [password, setPassword] = useState('');
+  const [address, setAddress] = useState('');
+  const [symptom, setSymptom] = useState('');
+  const [patientId, setPatientId] = useState('');
+  const [patientAsyncStorage, setPatientAsyncStorage] = useState([]);
+  const dateSelected = props.route.params.dateSelected;
+  const doctorId = props.route.params.doctorId;
+  const scheduleId = props.route.params.scheduleId;
+  // Passing configuration object to axios
+  useEffect(() => {
+    getAsyncStorage();
+  }, [patientId]);
 
-  const handleLogin = () => {
-    if (phoneNumber === '0377087266' && password === '24012000') {
-      props.navigation.navigate('Home');
-      ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT);
-    } else {
-      props.navigation.navigate('Home');
-      ToastAndroid.show('Đăng nhập không thành công', ToastAndroid.SHORT);
-    }
+  function getAsyncStorage() {
+    AsyncStorage.getItem('profilePatient', (err, result) => {
+      result = JSON.parse(result);
+      setPatientAsyncStorage(result);
+      setPatientId(result.id);
+    });
+  }
+
+  const handleRegisterMedicalRecords = () => {
+    console.log('====================================');
+    console.log(name);
+    console.log(gender);
+    console.log(birthday);
+    console.log(phoneNumber);
+    console.log(address);
+    console.log(symptom);
+    console.log(patientId);
+    console.log(doctorId);
+    console.log(dateSelected);
+    console.log(scheduleId);
+    console.log('====================================');
   };
 
   return (
@@ -41,7 +68,7 @@ const CreateMedicalRecordsScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Họ tên bệnh nhân"
-            onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
+            onChangeText={name => setName(name)}
           />
         </View>
         <View style={styles.containerInput}>
@@ -49,7 +76,7 @@ const CreateMedicalRecordsScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Giới tính"
-            onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
+            onChangeText={gender => setGender(gender)}
           />
         </View>
         <View style={styles.containerInput}>
@@ -65,8 +92,7 @@ const CreateMedicalRecordsScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Ngày/Tháng/Năm sinh"
-            secureTextEntry={true}
-            onChangeText={password => setPassword(password)}
+            onChangeText={birthday => setBirthday(birthday)}
           />
         </View>
         <View style={styles.containerInput}>
@@ -74,28 +100,22 @@ const CreateMedicalRecordsScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Địa chỉ"
-            secureTextEntry={true}
-            onChangeText={password => setPassword(password)}
+            onChangeText={address => setAddress(address)}
           />
         </View>
-        <View style={{width: '90%'}}>
-          <Text style={[styles.textBody, {alignSelf: 'flex-end'}]}>
-            Quên mật khẩu ?
-          </Text>
+        <View style={styles.containerInputSymptom}>
+          <Icon style={styles.iconInputSymptom} name="user" size={22} />
+          <TextInput
+            style={styles.inputText}
+            placeholder="Triệu chứng"
+            onChangeText={symptom => setSymptom(symptom)}
+          />
         </View>
         <TouchableOpacity
           style={[styles.containerSubmit, {backgroundColor: '#0aada8'}]}
-          onPress={handleLogin}>
-          <Text style={styles.submitText}>Đăng nhập</Text>
+          onPress={handleRegisterMedicalRecords}>
+          <Text style={styles.submitText}>Đặt lịch khám</Text>
         </TouchableOpacity>
-        <View style={{flexDirection: 'row', marginVertical: 20}}>
-          <Text style={styles.textBody}>Bạn chưa có tài khoản ?</Text>
-          <Text
-            style={[styles.textBody, {color: 'blue', marginLeft: 5}]}
-            onPress={() => props.navigation.navigate('Register')}>
-            Đăng ký tài khoản
-          </Text>
-        </View>
       </View>
     </ScrollView>
   );
@@ -132,9 +152,24 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
+  containerInputSymptom: {
+    width: '90%',
+    height: 100,
+    borderRadius: 15,
+    marginVertical: 5,
+    borderWidth: 3.5,
+    borderColor: '#0779ef',
+    flex: 1,
+    flexDirection: 'row',
+  },
   iconInput: {
     paddingLeft: 20,
     paddingTop: 10,
+    color: '#0779e4',
+  },
+  iconInputSymptom: {
+    paddingLeft: 20,
+    paddingTop: 35,
     color: '#0779e4',
   },
   inputText: {
