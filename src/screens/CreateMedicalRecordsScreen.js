@@ -22,6 +22,8 @@ const CreateMedicalRecordsScreen = props => {
   const [symptom, setSymptom] = useState('');
   const [patientId, setPatientId] = useState('');
   const [patientAsyncStorage, setPatientAsyncStorage] = useState([]);
+  const [status, setStatus] = useState();
+  const [message, setMessage] = useState('');
   const dateSelected = props.route.params.dateSelected;
   const doctorId = props.route.params.doctorId;
   const scheduleId = props.route.params.scheduleId;
@@ -39,18 +41,34 @@ const CreateMedicalRecordsScreen = props => {
   }
 
   const handleRegisterMedicalRecords = () => {
-    console.log('====================================');
-    console.log(name);
-    console.log(gender);
-    console.log(birthday);
-    console.log(phoneNumber);
-    console.log(address);
-    console.log(symptom);
-    console.log(patientId);
-    console.log(doctorId);
-    console.log(dateSelected);
-    console.log(scheduleId);
-    console.log('====================================');
+    fetch('http://10.0.2.2:8080/api/medical-records/register', {
+      method: 'POST',
+      body: JSON.stringify({
+        name: name,
+        birthday: birthday,
+        phoneNumber: phoneNumber,
+        address: address,
+        symptom: symptom,
+        gender: gender,
+        status: 0,
+        patientId: patientId,
+        doctorId: doctorId,
+        dateSelected: dateSelected,
+        scheduleId: scheduleId,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => response.json())
+      .then(res => {
+        if (res.status === 200) {
+          props.navigation.navigate('Schedule');
+          ToastAndroid.show(res.message, ToastAndroid.SHORT);
+        } else {
+          ToastAndroid.show(res.message, ToastAndroid.SHORT);
+        }
+      });
   };
 
   return (

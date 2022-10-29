@@ -10,6 +10,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  ToastAndroid,
 } from 'react-native';
 import ListItem from '../components/ListItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -23,9 +24,6 @@ const BookingScreen = (props, clinicId, specialtyId) => {
     // getScheduleByDoctorIdAndDate();
     let url =
       'http://10.0.2.2:8080/api/schedules/' + doctorId + '?day=' + dateSelected;
-    console.log('====================================');
-    console.log(url);
-    console.log('====================================');
     fetch(url)
       .then(response => response.json())
       .then(res => {
@@ -92,18 +90,37 @@ const BookingScreen = (props, clinicId, specialtyId) => {
             <View style={styles.buttonHourBooking}>
               <Button
                 title={schedule.time}
-                color="#0aada8"
+                color={schedule.status == 1 ? '#0aada8' : '#0C5776'}
                 disabled={schedule.status == false}
-                onPress={() =>
-                  props.navigation.navigate('CreateMedicalRecords', {
-                    doctorId,
-                    dateSelected,
-                    scheduleId: schedule.id,
-                  })
-                }
+                onPress={() => {
+                  if (schedule.status == 1) {
+                    props.navigation.navigate('CreateMedicalRecords', {
+                      doctorId,
+                      dateSelected,
+                      scheduleId: schedule.id,
+                    });
+                  } else {
+                    ToastAndroid.show(
+                      'Lịch khám đã được đặt',
+                      ToastAndroid.SHORT,
+                    );
+                  }
+                }}
               />
             </View>
           ))}
+        </View>
+        <View style={styles.noteStatusBookingEmpty}>
+          <Button title="" color="#0aada8" disabled />
+          <Text style={styles.titleTextInputNote}>Ngoài giò khám</Text>
+        </View>
+        <View style={styles.noteStatusBookingNotEmpty}>
+          <Button title="" color="#0aada8" />
+          <Text style={styles.titleTextInputNote}>Trống</Text>
+        </View>
+        <View style={styles.noteStatusBookingRecord}>
+          <Button title="" color="#0C5776" />
+          <Text style={styles.titleTextInputNote}>Đã được đặt</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -151,6 +168,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'SourceSansPro-SemiBoldItalic',
   },
+  titleTextInputNote: {
+    fontSize: 14,
+    marginLeft: 5,
+    fontFamily: 'SourceSansPro-SemiBoldItalic',
+  },
   hourBookingMorning: {
     width: '90%',
     position: 'absolute',
@@ -163,5 +185,29 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginVertical: 6,
     justifyContent: 'center',
+  },
+  noteStatusBookingEmpty: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '30%',
+    position: 'absolute',
+    top: 140,
+    left: 250,
+  },
+  noteStatusBookingNotEmpty: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '30%',
+    position: 'absolute',
+    top: 192,
+    left: 250,
+  },
+  noteStatusBookingRecord: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '30%',
+    position: 'absolute',
+    top: 244,
+    left: 250,
   },
 });
