@@ -33,7 +33,7 @@ const ScheduleScreen = props => {
   useEffect(() => {
     getAllMedicalRecordWithStatusWaitingConfirm();
     getAsyncStorage();
-  }, [patientId, medicalRecords]);
+  }, [patientId, optionTab]);
 
   function getAsyncStorage() {
     AsyncStorage.getItem('profilePatient', (err, result) => {
@@ -46,7 +46,9 @@ const ScheduleScreen = props => {
   function getAllMedicalRecordWithStatusWaitingConfirm() {
     let url =
       'http://10.0.2.2:8080/api/medical-records/get-all-medical-record-with-waiting-confirm/' +
-      patientId;
+      patientId +
+      '?status=' +
+      optionTab;
     fetch(url)
       .then(response => response.json())
       .then(res => {
@@ -80,6 +82,64 @@ const ScheduleScreen = props => {
       </View>
       <ScrollView style={styles.scrollView}>
         {optionTab == 1 && (
+          <View>
+            {medicalRecords.map(medicalRecord => (
+              <View style={styles.viewCard}>
+                <TouchableOpacity style={styles.card}>
+                  <Text style={styles.textTitle}>
+                    Mã khám bệnh: {medicalRecord.id}
+                  </Text>
+                  <Text style={styles.textTitle}>
+                    {medicalRecord.schedules.map(schedule => (
+                      <>Ngày khám:{schedule.day}</>
+                    ))}
+                  </Text>
+                  <Text style={styles.textTitle}>
+                    {medicalRecord.schedules.map(schedule => (
+                      <>Giờ khám: {schedule.time}</>
+                    ))}
+                  </Text>
+                  <Text style={styles.textTitleReadMore}>Xem chi tiết</Text>
+                  <Icon
+                    style={styles.textIconReadMore}
+                    name="angle-double-down"
+                    size={22}
+                  />
+                </TouchableOpacity>
+              </View>
+            ))}
+          </View>
+        )}
+        {optionTab == 2 && (
+          <View>
+            {medicalRecords.map(medicalRecord => (
+              <View style={styles.viewCard}>
+                <TouchableOpacity style={styles.card}>
+                  <Text style={styles.textTitle}>
+                    Mã khám bệnh: {medicalRecord.id}
+                  </Text>
+                  <Text style={styles.textTitle}>
+                    {medicalRecord.schedules.map(schedule => (
+                      <>Ngày khám:{schedule.day}</>
+                    ))}
+                  </Text>
+                  <Text style={styles.textTitle}>
+                    {medicalRecord.schedules.map(schedule => (
+                      <>Giờ khám: {schedule.time}</>
+                    ))}
+                  </Text>
+                  <Text style={styles.textTitleReadMore}>Xem chi tiết</Text>
+                  <Icon
+                    style={styles.textIconReadMore}
+                    name="angle-double-down"
+                    size={22}
+                  />
+                </TouchableOpacity>
+              </View>
+            ))}
+          </View>
+        )}
+        {optionTab == 3 && (
           <View>
             {medicalRecords.map(medicalRecord => (
               <View style={styles.viewCard}>
