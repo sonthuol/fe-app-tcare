@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {
   Text,
   View,
@@ -84,19 +84,23 @@ const ScheduleScreen = props => {
         {optionTab == 1 && (
           <View>
             {medicalRecords.map(medicalRecord => (
-              <View style={styles.viewCard}>
+              <View style={styles.viewCard} key={medicalRecord.id}>
                 <TouchableOpacity style={styles.card}>
                   <Text style={styles.textTitle}>
                     Mã khám bệnh: {medicalRecord.id}
                   </Text>
                   <Text style={styles.textTitle}>
                     {medicalRecord.schedules.map(schedule => (
-                      <>Ngày khám:{schedule.day}</>
+                      <Fragment key={schedule.id}>
+                        Ngày khám:{schedule.day}
+                      </Fragment>
                     ))}
                   </Text>
                   <Text style={styles.textTitle}>
                     {medicalRecord.schedules.map(schedule => (
-                      <>Giờ khám: {schedule.time}</>
+                      <Fragment key={schedule.id}>
+                        Giờ khám: {schedule.time}
+                      </Fragment>
                     ))}
                   </Text>
                   <Text style={styles.textTitleReadMore}>Xem chi tiết</Text>
@@ -113,19 +117,23 @@ const ScheduleScreen = props => {
         {optionTab == 2 && (
           <View>
             {medicalRecords.map(medicalRecord => (
-              <View style={styles.viewCard}>
+              <View style={styles.viewCard} key={medicalRecord.id}>
                 <TouchableOpacity style={styles.card}>
                   <Text style={styles.textTitle}>
                     Mã khám bệnh: {medicalRecord.id}
                   </Text>
                   <Text style={styles.textTitle}>
                     {medicalRecord.schedules.map(schedule => (
-                      <>Ngày khám:{schedule.day}</>
+                      <Fragment key={schedule.id}>
+                        Ngày khám:{schedule.day}
+                      </Fragment>
                     ))}
                   </Text>
                   <Text style={styles.textTitle}>
                     {medicalRecord.schedules.map(schedule => (
-                      <>Giờ khám: {schedule.time}</>
+                      <Fragment key={schedule.id}>
+                        Giờ khám: {schedule.time}
+                      </Fragment>
                     ))}
                   </Text>
                   <Text style={styles.textTitleReadMore}>Xem chi tiết</Text>
@@ -142,19 +150,23 @@ const ScheduleScreen = props => {
         {optionTab == 3 && (
           <View>
             {medicalRecords.map(medicalRecord => (
-              <View style={styles.viewCard}>
+              <View style={styles.viewCard} key={medicalRecord.id}>
                 <TouchableOpacity style={styles.card}>
                   <Text style={styles.textTitle}>
                     Mã khám bệnh: {medicalRecord.id}
                   </Text>
                   <Text style={styles.textTitle}>
                     {medicalRecord.schedules.map(schedule => (
-                      <>Ngày khám:{schedule.day}</>
+                      <Fragment key={schedule.id}>
+                        Ngày khám:{schedule.day}
+                      </Fragment>
                     ))}
                   </Text>
                   <Text style={styles.textTitle}>
                     {medicalRecord.schedules.map(schedule => (
-                      <>Giờ khám: {schedule.time}</>
+                      <Fragment key={schedule.id}>
+                        Giờ khám: {schedule.time}
+                      </Fragment>
                     ))}
                   </Text>
                   <Text style={styles.textTitleReadMore}>Xem chi tiết</Text>

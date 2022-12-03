@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {
   Text,
   View,
@@ -66,9 +66,13 @@ const DoctorScreen = props => {
         </View>
         <View>
           {doctors.map(doctor => (
-            <>
-              <ListItemDoctor itemDoctor={doctor} props={props} />
-            </>
+            <Fragment key={doctor.id}>
+              <ListItemDoctor
+                key={doctor.id}
+                itemDoctor={doctor}
+                props={props}
+              />
+            </Fragment>
           ))}
         </View>
       </ScrollView>

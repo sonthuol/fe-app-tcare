@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {
   Text,
   View,
@@ -60,13 +60,14 @@ const ClinicScreen = props => {
         </View>
         <View>
           {clinics.map(clinic => (
-            <>
+            <Fragment key={clinic.id}>
               <ListItem
+                key={clinic.id}
                 itemClinic={clinic}
                 props={props}
                 clinicId={clinic.id}
               />
-            </>
+            </Fragment>
           ))}
         </View>
       </ScrollView>

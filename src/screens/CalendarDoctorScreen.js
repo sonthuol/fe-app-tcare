@@ -51,7 +51,12 @@ LocaleConfig.locales['vi'] = {
 LocaleConfig.defaultLocale = 'vi';
 
 const CalendarDoctorScreen = (props, clinicId, specialtyId) => {
+  const [date, setDate] = useState();
   const doctorId = props.route.params.doctorId;
+
+  useEffect(() => {
+    setDate(new Date());
+  }, []);
 
   const onPressDateSelected = e => {
     let dateSelected =
@@ -92,7 +97,7 @@ const CalendarDoctorScreen = (props, clinicId, specialtyId) => {
               selectedColor: '#0aada8',
             },
           }}
-          minDate={new Date()}
+          minDate={date}
           onDayPress={e => onPressDateSelected(e)}
         />
       </View>

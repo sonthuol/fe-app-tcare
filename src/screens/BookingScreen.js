@@ -87,7 +87,7 @@ const BookingScreen = (props, clinicId, specialtyId) => {
         <View style={styles.hourBookingMorning}>
           <Text style={styles.titleTextInput}>Giờ khám</Text>
           {schedules.map(schedule => (
-            <View style={styles.buttonHourBooking}>
+            <View style={styles.buttonHourBooking} key={schedule.id}>
               <Button
                 title={schedule.time}
                 color={schedule.status == 1 ? '#0aada8' : '#0C5776'}

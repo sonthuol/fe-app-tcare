@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {
   Text,
   View,
@@ -241,36 +241,36 @@ const HomeScreen = props => {
         {optionTab == 1 && (
           <View>
             {clinics.map(clinic => (
-              <>
+              <Fragment key={clinic.id}>
                 <ListItem
                   itemClinic={clinic}
                   props={props}
                   clinicId={clinic.id}
                 />
-              </>
+              </Fragment>
             ))}
           </View>
         )}
         {optionTab == 2 && (
           <View>
             {specialties.map(specialty => (
-              <>
+              <Fragment key={specialty.id}>
                 <ListItemSpecialty
                   itemSpecialty={specialty}
                   props={props}
                   clinicId={specialty.clinics[0].id}
                   specialtyId={specialty.id}
                 />
-              </>
+              </Fragment>
             ))}
           </View>
         )}
         {optionTab == 3 && (
           <View>
             {doctors.map(doctor => (
-              <>
+              <Fragment key={doctor.id}>
                 <ListItemDoctor itemDoctor={doctor} props={props} />
-              </>
+              </Fragment>
             ))}
           </View>
         )}
