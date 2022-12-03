@@ -20,13 +20,14 @@ const DoctorScreen = props => {
   const [specialtyId, setSpecialtyId] = useState(
     props.route.params.specialtyId,
   );
+  const [keyFind, setKeyFind] = useState('');
 
   // Passing configuration object to axios
   useEffect(() => {
     getAllDoctors();
-  }, []);
+  }, [keyFind]);
   function getAllDoctors() {
-    let url = 'http://10.0.2.2:8080/api/public/doctors/';
+    let url = 'http://10.0.2.2:8080/api/public/doctors/' + keyFind;
     if (clinicId !== '' && specialtyId !== '') {
       url = url + clinicId + '/' + specialtyId;
     }
@@ -62,7 +63,12 @@ const DoctorScreen = props => {
             size={25}
             color="#c6c6c6"
           />
-          <TextInput style={styles.textInput} placeholder="Tìm kiếm" />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Tìm kiếm"
+            value={keyFind}
+            onChangeText={setKeyFind}
+          />
         </View>
         <View>
           {doctors.map(doctor => (

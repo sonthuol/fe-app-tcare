@@ -16,14 +16,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 const ClinicScreen = props => {
   const [clinics, setClinics] = useState([]);
+  const [keyFind, setKeyFind] = useState('');
 
   // Passing configuration object to axios
   useEffect(() => {
     getAllClinics();
-  }, []);
+  }, [keyFind]);
 
   function getAllClinics() {
-    fetch('http://10.0.2.2:8080/api/public/clinics')
+    fetch('http://10.0.2.2:8080/api/public/clinics/' + keyFind)
       .then(response => response.json())
       .then(res => {
         setClinics(res.data);
@@ -32,6 +33,7 @@ const ClinicScreen = props => {
         console.error(error);
       });
   }
+
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <ScrollView style={styles.scrollView}>
@@ -56,7 +58,12 @@ const ClinicScreen = props => {
             size={25}
             color="#c6c6c6"
           />
-          <TextInput style={styles.textInput} placeholder="Tìm kiếm" />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Tìm kiếm"
+            value={keyFind}
+            onChangeText={setKeyFind}
+          />
         </View>
         <View>
           {clinics.map(clinic => (

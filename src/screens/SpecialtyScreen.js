@@ -19,22 +19,34 @@ const SpecialtyScreen = props => {
   const [url, setUrl] = useState(
     'http://10.0.2.2:8080/api/public/specialties/',
   );
+  const [keyFind, setKeyFind] = useState('');
   const [clinicId, setClinicId] = useState(props.route.params.clinicId);
 
   // Passing configuration object to axios
   useEffect(() => {
     getAllSpecialties();
-  }, []);
+  }, [keyFind]);
 
   function getAllSpecialties() {
-    fetch(url + clinicId)
-      .then(response => response.json())
-      .then(res => {
-        setSpecialties(res.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    if (keyFind === '') {
+      fetch(url + clinicId)
+        .then(response => response.json())
+        .then(res => {
+          setSpecialties(res.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    } else {
+      fetch('http://10.0.2.2:8080/api/public/specialties/find/' + keyFind)
+        .then(response => response.json())
+        .then(res => {
+          setSpecialties(res.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
   }
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -60,7 +72,12 @@ const SpecialtyScreen = props => {
             size={25}
             color="#c6c6c6"
           />
-          <TextInput style={styles.textInput} placeholder="Tìm kiếm" />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Tìm kiếm"
+            value={keyFind}
+            onChangeText={setKeyFind}
+          />
         </View>
         <View>
           {specialties.map(specialty => (
