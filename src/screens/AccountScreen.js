@@ -33,25 +33,33 @@ const AccountScreen = props => {
       result = JSON.parse(result);
       setPatientAsyncStorage(result);
       setPatientId(result.id);
-      // setName(result.name);
-      // setBirthday(result.birthday);
-      // setPhoneNumber(result.phoneNumber);
-      // setGender(result.gender);
-      // setAddress(result.address);
+      setName(result.name);
+      setBirthday(result.birthday);
+      setPhoneNumber(result.phoneNumber);
+      setGender(result.gender);
+      setAddress(result.address);
     });
   }
 
+  function saveAsyncStorage() {
+    AsyncStorage.setItem('profilePatient', JSON.stringify(patient));
+  }
+
   const handleUpdatePatient = () => {
+    var patientUpdate = JSON.stringify({
+      name: name,
+      birthday: birthday,
+      phoneNumber: phoneNumber,
+      address: address,
+      gender: gender,
+    });
+    // console.log('====================================');
+    // console.log(log);
+    // console.log('====================================');
     let url = 'http://10.0.2.2:8080/api/patient/' + patientId;
     fetch(url, {
       method: 'PUT',
-      body: JSON.stringify({
-        name: name,
-        birthday: birthday,
-        phoneNumber: phoneNumber,
-        address: address,
-        gender: gender,
-      }),
+      body: patientUpdate,
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
@@ -64,6 +72,7 @@ const AccountScreen = props => {
           ToastAndroid.show(res.message, ToastAndroid.SHORT);
         }
       });
+    AsyncStorage.setItem('profilePatient', JSON.stringify(patientUpdate));
   };
 
   return (
@@ -81,8 +90,8 @@ const AccountScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Họ tên bệnh nhân"
-            onChangeText={name => setName(name)}
-            value={patientAsyncStorage.name}
+            onChangeText={setName}
+            value={name}
           />
         </View>
         <View style={styles.containerInput}>
@@ -90,8 +99,8 @@ const AccountScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Giới tính"
-            onChangeText={gender => setGender(gender)}
-            value={patientAsyncStorage.gender}
+            onChangeText={setGender}
+            value={gender}
           />
         </View>
         <View style={styles.containerInput}>
@@ -99,8 +108,8 @@ const AccountScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Số điện thoại"
-            onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
-            value={patientAsyncStorage.phoneNumber}
+            onChangeText={setPhoneNumber}
+            value={phoneNumber}
           />
         </View>
         <View style={styles.containerInput}>
@@ -108,8 +117,8 @@ const AccountScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Ngày/Tháng/Năm sinh"
-            onChangeText={birthday => setBirthday(birthday)}
-            value={patientAsyncStorage.birthday}
+            onChangeText={setBirthday}
+            value={birthday}
           />
         </View>
         <View style={styles.containerInput}>
@@ -117,8 +126,8 @@ const AccountScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Địa chỉ"
-            onChangeText={address => setAddress(address)}
-            value={patientAsyncStorage.address}
+            onChangeText={setAddress}
+            value={address}
           />
         </View>
         <TouchableOpacity

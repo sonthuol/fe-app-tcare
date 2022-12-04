@@ -49,7 +49,12 @@ const ScheduleScreen = props => {
       patientId +
       '?status=' +
       optionTab;
-    fetch(url)
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
       .then(response => response.json())
       .then(res => {
         setMedicalRecords(res.data);
