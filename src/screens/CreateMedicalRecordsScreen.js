@@ -35,12 +35,36 @@ const CreateMedicalRecordsScreen = props => {
   function getAsyncStorage() {
     AsyncStorage.getItem('profilePatient', (err, result) => {
       result = JSON.parse(result);
+      console.log('====================================');
+      console.log(result);
+      console.log('====================================');
       setPatientAsyncStorage(result);
+      setName(result.name);
+      setBirthday(result.birthday);
+      setPhoneNumber(result.phoneNumber);
+      setGender(result.gender);
+      setAddress(result.address);
       setPatientId(result.id);
     });
   }
 
   const handleRegisterMedicalRecords = () => {
+    var log = JSON.stringify({
+      name: name,
+      birthday: birthday,
+      phoneNumber: phoneNumber,
+      address: address,
+      symptom: symptom,
+      gender: gender,
+      status: 0,
+      patientId: patientId,
+      doctorId: doctorId,
+      dateSelected: dateSelected,
+      scheduleId: scheduleId,
+    });
+    console.log('====================================');
+    console.log(log);
+    console.log('====================================');
     fetch('http://10.0.2.2:8080/api/medical-records/register', {
       method: 'POST',
       body: JSON.stringify({
@@ -86,7 +110,8 @@ const CreateMedicalRecordsScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Họ tên bệnh nhân"
-            onChangeText={name => setName(name)}
+            onChangeText={setName}
+            value={name}
           />
         </View>
         <View style={styles.containerInput}>
@@ -94,7 +119,8 @@ const CreateMedicalRecordsScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Giới tính"
-            onChangeText={gender => setGender(gender)}
+            onChangeText={setGender}
+            value={gender}
           />
         </View>
         <View style={styles.containerInput}>
@@ -102,7 +128,8 @@ const CreateMedicalRecordsScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Số điện thoại"
-            onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
+            onChangeText={setPhoneNumber}
+            value={phoneNumber}
           />
         </View>
         <View style={styles.containerInput}>
@@ -110,7 +137,8 @@ const CreateMedicalRecordsScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Ngày/Tháng/Năm sinh"
-            onChangeText={birthday => setBirthday(birthday)}
+            onChangeText={setBirthday}
+            value={birthday}
           />
         </View>
         <View style={styles.containerInput}>
@@ -118,7 +146,8 @@ const CreateMedicalRecordsScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Địa chỉ"
-            onChangeText={address => setAddress(address)}
+            onChangeText={setAddress}
+            value={address}
           />
         </View>
         <View style={styles.containerInputSymptom}>
@@ -126,7 +155,8 @@ const CreateMedicalRecordsScreen = props => {
           <TextInput
             style={styles.inputText}
             placeholder="Triệu chứng"
-            onChangeText={symptom => setSymptom(symptom)}
+            onChangeText={setSymptom}
+            value={symptom}
           />
         </View>
         <TouchableOpacity
