@@ -76,6 +76,7 @@ const ScheduleScreen = props => {
         style={{
           paddingTop: 20,
           paddingLeft: 20,
+          paddingRight: 20,
         }}>
         <CustomSwitch
           selectionMode={1}
@@ -96,14 +97,14 @@ const ScheduleScreen = props => {
                   </Text>
                   <Text style={styles.textTitle}>
                     {medicalRecord.schedules.map(schedule => (
-                      <Fragment key={schedule.id}>
+                      <Fragment key={medicalRecord.id}>
                         Ngày khám:{schedule.day}
                       </Fragment>
                     ))}
                   </Text>
                   <Text style={styles.textTitle}>
                     {medicalRecord.schedules.map(schedule => (
-                      <Fragment key={schedule.id}>
+                      <Fragment key={medicalRecord.id}>
                         Giờ khám: {schedule.time}
                       </Fragment>
                     ))}
@@ -129,14 +130,14 @@ const ScheduleScreen = props => {
                   </Text>
                   <Text style={styles.textTitle}>
                     {medicalRecord.schedules.map(schedule => (
-                      <Fragment key={schedule.id}>
+                      <Fragment key={medicalRecord.id}>
                         Ngày khám:{schedule.day}
                       </Fragment>
                     ))}
                   </Text>
                   <Text style={styles.textTitle}>
                     {medicalRecord.schedules.map(schedule => (
-                      <Fragment key={schedule.id}>
+                      <Fragment key={medicalRecord.id}>
                         Giờ khám: {schedule.time}
                       </Fragment>
                     ))}
@@ -162,14 +163,14 @@ const ScheduleScreen = props => {
                   </Text>
                   <Text style={styles.textTitle}>
                     {medicalRecord.schedules.map(schedule => (
-                      <Fragment key={schedule.id}>
+                      <Fragment key={medicalRecord.id}>
                         Ngày khám:{schedule.day}
                       </Fragment>
                     ))}
                   </Text>
                   <Text style={styles.textTitle}>
                     {medicalRecord.schedules.map(schedule => (
-                      <Fragment key={schedule.id}>
+                      <Fragment key={medicalRecord.id}>
                         Giờ khám: {schedule.time}
                       </Fragment>
                     ))}

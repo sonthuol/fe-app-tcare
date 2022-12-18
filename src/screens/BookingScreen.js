@@ -18,6 +18,7 @@ import IconFontisto from 'react-native-vector-icons/Fontisto';
 const BookingScreen = (props, clinicId, specialtyId) => {
   const dateSelected = props.route.params.dateSelected;
   const doctorId = props.route.params.doctorId;
+  const doctorName = props.route.params.doctorName;
   const [schedules, setSchedules] = useState([]);
   // Passing configuration object to axios
   useEffect(() => {
@@ -45,7 +46,7 @@ const BookingScreen = (props, clinicId, specialtyId) => {
           size={25}
           color="#fff"
         />
-        <Image
+        {/* <Image
           source={require('../images/PGS.TS-TRAN-MINH-DIEN-2.jpg')}
           style={{
             width: 40,
@@ -55,14 +56,15 @@ const BookingScreen = (props, clinicId, specialtyId) => {
             marginLeft: 20,
             resizeMode: 'contain',
           }}
-        />
+        /> */}
         <Text
           style={{
             fontFamily: 'SourceSansPro-SemiBoldItalic',
             color: '#fff',
             fontSize: 18,
+            marginLeft: 20,
           }}>
-          Ths.BS Lê Anh Tuấn
+          {doctorName}
         </Text>
       </View>
       <View style={styles.containerBooking}>
@@ -70,7 +72,10 @@ const BookingScreen = (props, clinicId, specialtyId) => {
         <View>
           <TouchableOpacity
             onPress={() =>
-              props.navigation.navigate('CalendarDoctor', {doctorId: doctorId})
+              props.navigation.navigate('CalendarDoctor', {
+                doctorId: doctorId,
+                doctorName: doctorName,
+              })
             }>
             <Text style={styles.titleTextInput}>Ngày khám *</Text>
             <View style={styles.containerInput}>
@@ -98,6 +103,7 @@ const BookingScreen = (props, clinicId, specialtyId) => {
                       doctorId,
                       dateSelected,
                       scheduleId: schedule.id,
+                      doctorName,
                     });
                   } else {
                     ToastAndroid.show(

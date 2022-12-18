@@ -45,6 +45,16 @@ const AccountScreen = props => {
     AsyncStorage.setItem('profilePatient', JSON.stringify(patient));
   }
 
+  const handleLogout = async () => {
+    props.navigation.navigate('Login');
+    try {
+      await AsyncStorage.removeItem(profilePatient);
+      return true;
+    } catch (exception) {
+      return false;
+    }
+  };
+
   const handleUpdatePatient = () => {
     var patientUpdate = JSON.stringify({
       name: name,
@@ -134,6 +144,11 @@ const AccountScreen = props => {
           style={[styles.containerSubmit, {backgroundColor: '#0aada8'}]}
           onPress={handleUpdatePatient}>
           <Text style={styles.submitText}>Cập nhật</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.containerSubmit, {backgroundColor: '#0aada8'}]}
+          onPress={handleLogout}>
+          <Text style={styles.submitText}>Đăng xuất</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

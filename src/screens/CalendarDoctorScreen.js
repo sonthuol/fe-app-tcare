@@ -51,8 +51,9 @@ LocaleConfig.locales['vi'] = {
 LocaleConfig.defaultLocale = 'vi';
 
 const CalendarDoctorScreen = (props, clinicId, specialtyId) => {
-  const [date, setDate] = useState();
+  const [date, setDate] = useState(null);
   const doctorId = props.route.params.doctorId;
+  const doctorName = props.route.params.doctorName;
 
   useEffect(() => {
     setDate(new Date());
@@ -65,7 +66,7 @@ const CalendarDoctorScreen = (props, clinicId, specialtyId) => {
       (e.month < 10 ? '0' + e.month : e.month) +
       '/' +
       e.year;
-    props.navigation.navigate('Booking', {dateSelected, doctorId});
+    props.navigation.navigate('Booking', {dateSelected, doctorId, doctorName});
   };
 
   return (

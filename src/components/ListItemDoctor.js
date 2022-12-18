@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 
 export default function ListItemDoctor({itemDoctor, props}) {
   const [doctorId, setDoctorId] = useState(itemDoctor.id);
+  const [doctorName, setDoctorName] = useState(itemDoctor.name);
   return (
     <View
       style={{
@@ -45,7 +46,9 @@ export default function ListItemDoctor({itemDoctor, props}) {
         </View>
       </View>
       <TouchableOpacity
-        onPress={() => props.navigation.navigate('CalendarDoctor', {doctorId})}
+        onPress={() =>
+          props.navigation.navigate('CalendarDoctor', {doctorId, doctorName})
+        }
         style={{
           backgroundColor: '#0aada8',
           padding: 13,
